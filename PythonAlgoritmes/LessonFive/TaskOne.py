@@ -18,7 +18,6 @@ def create_org():
        orgprof[(quart)] =inp
        mid = mid + inp
        quart+=1
-   mid = mid/4
    organisation = Organisation(orgname,  orgprof, mid)
 
    print (organisation)
@@ -26,8 +25,8 @@ def create_org():
 
         
 id = 0
-orglistdeque=deque(maxlen=2)
-while id<2:
+orglistdeque=deque(maxlen=4)
+while id<4:
     _org=create_org()
     orglistdeque.append(_org)
     id+=1
@@ -37,7 +36,11 @@ for t in orglistdeque:
     org_prof=0
     for prof in t.date_profit:
         profforall+=t.date_profit[prof]
-    midprof = profforall/4
+
+
+midprof = profforall/4
+print (f"Средний доход = {midprof}")
+for t in orglistdeque:        
     if  t.mid<midprof:
         print (f"организация {t.name} показала доходность ниже среднего по больнице")
     else:
