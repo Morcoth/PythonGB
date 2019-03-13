@@ -8,9 +8,10 @@ import random as rnd
 array = [rnd.randint(-100, 101) for _ in range (10)]
 print (array)
 def array_bubble_sort (array):
+    
     for i in range(len(array) -1):
         cnt=0
-        for j in range(len(array) - 1 - cnt ):
+        for j in range(len(array) - 1 - i - cnt ):
             if array[j] < array[j + 1]:
                 array[j], array[j + 1] = array[j + 1], array[j]
                 cnt+=1
