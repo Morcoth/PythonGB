@@ -54,21 +54,25 @@ patternEno = re.compile("<ns1:ServiceNumber>(.+?)<\/ns1:ServiceNumber>")
 patternCorpId = re.compile("<ns1:CorpId>(.+?)<\/ns1:CorpId>")
 patternSsoId = re.compile("<ns1:SsoId>(.+?)<\/ns1:SsoId>")
 
-directory = r'Request'
-for filename in os.listdir(directory):
-    recourceEno = ''
-    recourceCorpId = ''
-    recourceSsoId = ''
-     #   print(os.path.join(directory, filename))
-    for i, line in enumerate(open(os.path.join(directory, filename))):
-            for match in re.finditer(patternEno, line):
-                recourceEno = match.group(1)
-            for match2 in re.finditer(patternCorpId, line):
-                recourceCorpId = match2.group(1)
-            for match3 in re.finditer(patternSsoId, line):
-                recourceSsoId = match3.group(1)
-    print (f'Eno = {recourceEno} CorpId = {recourceCorpId} SsoId = {recourceSsoId}')
-
+directory = r'2020'
+for i,j,y in os.walk(directory):
+    print(i) 
+    if "Request" in i:
+        recourceEno = ''
+        recourceCorpId = ''
+        recourceSsoId = ''
+        #   print(os.path.join(directory, filename))
+        for filename in os.listdir(i):
+            for t, line in enumerate(open(os.path.join(i, filename))):
+                    for match in re.finditer(patternEno, line):
+                        recourceEno = match.group(1)
+                    for match2 in re.finditer(patternCorpId, line):
+                        recourceCorpId = match2.group(1)
+                    for match3 in re.finditer(patternSsoId, line):
+                        recourceSsoId = match3.group(1)
+            print (f'Eno = {recourceEno} CorpId = {recourceCorpId} SsoId = {recourceSsoId}')
+    else:
+        continue
 
 
 
