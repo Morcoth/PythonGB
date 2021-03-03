@@ -1,6 +1,7 @@
 import psycopg2 as pg
-import pandas.io.sql as psql
-import pandas as pd
+#import pandas.io.sql as psql
+#import pandas as pd
+import configparser  # импортируем библиотеку
 import re
 import os
 # Реализовать сценарий загрузки архивных CorpId и SsoId из лог-файлов продуктивного контура
@@ -38,7 +39,7 @@ def updateTable(eno, corpId, ssoId):
         record = cursor.fetchone()
         print(record)
 
-    except (Exception, psycopg2.Error) as error:
+    except (Exception, pg.Error) as error:
         print("Error in update operation", error)
 
     finally:
@@ -47,14 +48,15 @@ def updateTable(eno, corpId, ssoId):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
-
-
+# config = configparser.ConfigParser()
+# config.read("../config.ini") 
+# print(config["general"]["dbname"])
 
 patternEno = re.compile("<ns1:ServiceNumber>(.+?)<\/ns1:ServiceNumber>")
 patternCorpId = re.compile("<ns1:CorpId>(.+?)<\/ns1:CorpId>")
 patternSsoId = re.compile("<ns1:SsoId>(.+?)<\/ns1:SsoId>")
 
-directory = r'2020'
+directory = r'.'
 for i,j,y in os.walk(directory):
     print(i) 
     if "Request" in i:
@@ -71,6 +73,8 @@ for i,j,y in os.walk(directory):
                     for match3 in re.finditer(patternSsoId, line):
                         recourceSsoId = match3.group(1)
             print (f'Eno = {recourceEno} CorpId = {recourceCorpId} SsoId = {recourceSsoId}')
+            updateTable(recourceEno, recourceCorpId, recourceSsoId)
+
     else:
         continue
 
