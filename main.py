@@ -2,16 +2,11 @@ import psycopg2 as pg
 import configparser 
 import re
 import os
-# Реализовать сценарий загрузки архивных CorpId и SsoId из лог-файлов продуктивного контура
-# При анализе логов необходимо отталкиваться от ЕНО (ServiceNumber). По ЕНО осуществлять поиск обращения в базе ОВГИ (Recourse). В обращении заполнять  CorpId и SsoId значениями из блока Представитель xml сообщения, если представитель отсутствует - то из блока Заявитель.
-
-# Пример ссылки на папку с логами обращений за 24.02
-# \\ovga2-logs\Ovga\MqLogs\2021\02\24\In\Request\
 
 def updateTable(eno, corpId, ssoId):
     try:
-        connection = pg.connect(dbname='ELMA3', user='postgres', 
-                        password='1', host='10.176.76.212', port='5432')
+        connection = pg.connect(dbname='1', user='1', 
+                        password='1', host='112', port='1')
 
         cursor = connection.cursor()
 
